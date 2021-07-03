@@ -1,8 +1,21 @@
-import images
+
 from django.db import models
 import datetime
 
 # Create your models here.
+
+
+class tags(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+    
+    def save_tag(self):
+        self.save()
+
+       
 
 class Project(models.Model):
     title = models.CharField(max_length=60)
@@ -20,7 +33,7 @@ class Project(models.Model):
 
     def delete_project(self):
         self.delete()
-        
+
     @classmethod
     def all_projects(cls):
         all_projects = cls.objects.order_by('pub_date')
@@ -31,15 +44,5 @@ class Project(models.Model):
         project = cls.objects.filter(tags__name__icontains=search_term)
         return project
 
-
-class tags(models.Model):
-    name = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.name
-
-    
-    def save_tag(self):
-        self.save()
-        
+ 
 # class Categories(models.Model):
